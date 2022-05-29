@@ -1,0 +1,70 @@
+//We will use the first row and the first coloumn as dummy arrays.
+
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        bool row0=false,col0=false;
+        int i,j,row=matrix.size(),col=matrix[0].size();
+        
+        // Step-1 We have take two bool variables to check whether we have to make the first row and col to 0. 
+        
+        for(j=0;j<col;j++)
+        {
+            if(matrix[0][j]==0)
+            {
+                row0=true;
+                break;
+            }
+        }
+        
+        for(i=0;i<row;i++)
+        {
+            if(matrix[i][0]==0)
+            {
+                col0=true;
+                break;
+            }
+        }
+        
+        //Step-2 Now for every 0 in the remaining matrix set matrix[i][0] and matrix[0][j] to 0
+        
+        for(i=1;i<row;i++)
+        {
+            for(j=1;j<col;j++)
+            {
+                if(matrix[i][j]==0)
+                {
+                    matrix[i][0]=0;
+                    matrix[0][j]=0;
+                }
+            }
+        }
+        
+        //Step-3 Now make matrix[i][j] to 0 if matrix[i][0]==0 or matrix[0][j]==0
+        
+        for(i=1;i<row;i++)
+        {
+            for(j=1;j<col;j++)
+            {
+                if(matrix[i][0]==0 or matrix[0][j]==0)
+                    matrix[i][j]=0;
+            }
+        }
+        
+        //Step-4 Now make the first row to 0 if row0 is true and also set first coloumn to 0 if col0 is true
+        
+        if(col0==true)
+        {
+            for(i=0;i<row;i++)
+                matrix[i][0]=0;
+        }
+        
+        if(row0==true)
+        {
+            for(j=0;j<col;j++)
+                matrix[0][j]=0;
+        }
+    }
+};
+
+// For better understanding just dry run the code
