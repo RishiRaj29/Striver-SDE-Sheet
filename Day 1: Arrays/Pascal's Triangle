@@ -1,0 +1,32 @@
+class Solution {
+public:
+    vector<vector<int>> generate(int rows) {
+        int i,value=1,r,c;
+        vector<vector<int>> ans(rows);
+        for(i=0;i<rows;i++)
+        {
+            if(i==0)
+                ans[i].push_back(1);
+            else if(i==1)
+            {
+                ans[i].push_back(1);
+                ans[i].push_back(1);
+            }
+            else
+            {
+                ans[i].push_back(1);
+                r=value;
+                c=1;
+                while(r--)
+                {
+                    int x=ans[i-1][c]+ans[i-1][c-1];
+                    ans[i].push_back(x);
+                    c++;
+                }
+                ans[i].push_back(1);
+                value++;
+            }
+        }
+        return ans;
+    }
+};
