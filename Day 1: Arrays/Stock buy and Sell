@@ -1,0 +1,24 @@
+// A simple Recursive Solution is as follows->
+
+class Solution {
+public:
+    int fun(int index,vector<int> &prices,int small,int ans)
+    {
+        if(index==prices.size())
+            return ans;
+        int diff;
+        if(prices[index]<small)
+        {
+            small=min(small,prices[index]);
+        }
+        else
+        {
+            diff=prices[index]-small; 
+            ans=max(diff,ans);
+        }
+        return fun(index+1,prices,small,ans);
+    }
+    
+    int maxProfit(vector<int>& prices) {
+        return fun(1,prices,prices[0],0);
+    }
