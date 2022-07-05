@@ -1,0 +1,28 @@
+/*         Search in a 2d Matrix          */
+
+
+bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        int m=matrix.size(),n=matrix[0].size(),low=0,high=(m*n)-1;
+        
+//Consider the matrix to be a linear array with indexes from 0 to m*n-1.
+        
+//This 1-D array is sorted and you need to find the target so use Binary Search Algo.
+        
+// The middle element in a 2-D matrix is given by matrix[mid / (no. of cols)][mid % (no. of cols)].
+        
+        while(low<=high)
+        {
+            int mid=(low+high)/2;
+            
+            if(matrix[mid/n][mid%n]==target)
+                return true;
+            
+            else if(matrix[mid/n][mid%n]>target)
+                high=mid-1;
+            
+            else if(matrix[mid/n][mid%n]<target)
+                low=mid+1;
+            
+        }
+        return false;
+    }
