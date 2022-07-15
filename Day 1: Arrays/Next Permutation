@@ -1,0 +1,52 @@
+// Follow the 4 Steps mentioned with the code to solve the problem
+
+class Solution {
+public:
+    void nextPermutation(vector<int>& permutation) {
+        int n=permutation.size();
+        int i,ind1=0,ind2,m=INT_MAX;
+        
+        // Step-1 -> Find ind1
+        // ind1 is the index where arr[i]<arr[i+1] (Start from the back)
+        
+        for(i=n-2;i>=0;i--)
+        {
+            if(permutation[i]<permutation[i+1])
+            {
+                ind1=i;
+                break;
+            }
+        }
+
+        if(i==-1) // if the array is sorted in decresing order then ans will be array sorted in ascending order
+        {
+             sort(permutation.begin(),permutation.end());
+             return;
+        }
+
+        // Step2-> Find ind2
+        // ind2 is the index which has the element just bigger than element at ind1
+
+        for(i=n-1;i>ind1;i--)
+        {
+            if(permutation[i]>permutation[ind1])
+            {
+                if(permutation[i]<m)
+                {
+                    m=permutation[i];
+                    ind2=i;
+                }
+            }
+        }
+        
+        // Step3-> Swap elements present at ind1 and ind2
+        
+        swap(permutation[ind1],permutation[ind2]);
+        
+        // Step4-> Reverse all the elements in the range ind1+1 to end of the array
+        
+        reverse(permutation.begin()+ind1+1,permutation.end());
+
+        return;
+    }
+};
