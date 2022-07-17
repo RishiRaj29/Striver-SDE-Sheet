@@ -1,0 +1,38 @@
+/*
+
+If there is a duplicate number then there exists a cycle. So use Floyd's Algorithm to detect this cycle. Here we use slow and fast pointers .
+
+The slow pointer moves by 1 unit and fast pointer moves by 2 units. The point at which they collide we stop them. 
+
+We then start fast from the start and slow from the point where they collided. We make both the pointers move by 1 unit.
+
+The point where they collide again is the element which is duplicate.
+
+*/
+
+class Solution {
+public:
+
+    int findDuplicate(vector<int>& nums) {
+    
+        int slow=nums[0],fast=nums[0];
+        
+        do
+        {
+            slow=nums[slow];
+            
+            fast=nums[nums[fast]];
+            
+        }while(slow!=fast);
+        
+        fast=nums[0];
+        
+        while(slow!=fast)
+        {
+            slow=nums[slow];
+            fast=nums[fast];
+        }
+        
+        return slow;
+    }
+};
