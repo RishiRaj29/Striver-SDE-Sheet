@@ -1,0 +1,45 @@
+/* 
+   Using Two pointer approach find the numbers which give the sum as target .
+
+   Then try to find the Indices of the two numbers in the original array.
+   
+*/
+
+vector<int> twoSum(vector<int>& nums, int target) {
+        int n=nums.size();
+        vector<int>ans,arr;
+        arr=nums;
+        sort(arr.begin(), arr.end());
+        int s=0,f=n-1,x,y,i1,i2;
+        while(s<f)
+        {
+            if(arr[s]+arr[f]>target)
+                f--;
+            else if(arr[s]+arr[f]<target)
+                s++;
+            else 
+            {
+                x=arr[s];
+                y=arr[f];
+                break;
+            }
+        }
+        vector<int>::iterator it1,it2,it3;
+        it1=find(nums.begin(),nums.end(),x);
+        it2=find(nums.begin(),nums.end(),y);
+        i1=it1-nums.begin();
+        i2=it2-nums.begin();
+        if(i1==i2)
+        {
+            it3=find(it2+1,nums.end(),y);
+            i2=it3-nums.begin();
+            ans.push_back(i1);
+            ans.push_back(i2);
+        }
+        else
+        {
+            ans.push_back(i1);
+            ans.push_back(i2);
+        }
+        return ans;
+    }
