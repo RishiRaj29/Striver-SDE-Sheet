@@ -1,0 +1,22 @@
+/*
+
+start slow and fast pointer from head. Now move slow pointer by one and fast pointer by two. 
+
+When fast pointer reaches NULL or fast->next reaches NULL then slow will point to the middle element of the Linked List.
+
+*/
+
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        ListNode *slow=head,*fast=head;
+        
+        while(fast!=NULL and fast->next!=NULL)
+        {
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        
+        return slow;
+    }
+};
