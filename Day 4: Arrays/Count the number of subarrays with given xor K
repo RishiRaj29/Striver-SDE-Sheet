@@ -1,0 +1,21 @@
+/* For better understanding see Striver's video  /*
+
+int Solution::solve(vector<int> &A, int B) {
+    map<int,int> hash;
+    
+    int ans=0,xorr=0;
+    
+    for(int i=0;i<A.size();i++)
+    {
+        xorr = xorr ^ A[i];
+        
+        if(xorr==B)
+            ans++;
+            
+        if(hash.find(xorr ^ B)!=hash.end())
+            ans+=hash[xorr ^ B];
+            
+        hash[xorr]++;
+    }
+    return ans;
+}
