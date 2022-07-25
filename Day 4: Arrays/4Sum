@@ -1,0 +1,47 @@
+/*
+
+Run two nested for loops for i and j after sorting the given arrays.
+
+Now apply two pointer approach to find pairs which sum to (target - nums[i] - nums[j]).
+
+*/
+
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        long long int sum=0;
+        vector<int> temp;
+        vector<vector<int>> ans;
+        if(nums.size()<4)
+            return ans;
+        sort(nums.begin(),nums.end());
+        for(int i=0;i<nums.size()-3;i++)
+        {
+            for(int j=i+1;j<nums.size()-2;j++)
+            {
+                sum=(long long int)target-(long long int)nums[i]-(long long int)nums[j];
+                int left=j+1,right=nums.size()-1;
+                while(left<right)
+                {
+                    if(nums[left]+nums[right]==sum)
+                    {
+                        temp.push_back(nums[i]);
+                        temp.push_back(nums[j]);
+                        temp.push_back(nums[left]);
+                        temp.push_back(nums[right]);
+                        if(find(ans.begin(),ans.end(),temp)==ans.end())
+                            ans.push_back(temp);
+                        temp.clear();
+                        left++;
+                        right--;
+                    }
+                    else if(nums[left]+nums[right]>sum)
+                        right--;
+                    else
+                        left++;
+                }
+            }
+        }
+        return ans;
+    }
+};
