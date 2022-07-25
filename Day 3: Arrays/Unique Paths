@@ -1,0 +1,61 @@
+/*  Recursive Solution  (Will give TLE)*/
+
+class Solution {
+public:
+    int fun(int row,int col)
+    {
+        if(row==0 and col==0)
+        {
+            return 1;
+        }
+        
+        if(row==0)
+        {
+            return fun(row,col-1);
+        }
+        
+        if(col==0)
+        {
+            return fun(row-1,col);
+        }
+        
+        return fun(row-1,col)+fun(row,col-1);
+    }
+    
+    int uniquePaths(int m, int n) {
+        return fun(m-1,n-1);
+    }
+};
+
+/*   Memoization Solution.  */
+
+class Solution {
+public:
+    int fun(int row,int col,vector<vector<int>> &dp)
+    {
+        if(row==0 and col==0)
+        {
+            return 1;
+        }
+        
+        if(dp[row][col]!=-1)
+            return dp[row][col];
+        
+        if(row==0)
+        {
+            return dp[row][col]=fun(row,col-1,dp);
+        }
+        
+        if(col==0)
+        {
+            return dp[row][col]=fun(row-1,col,dp);
+        }
+        
+        return dp[row][col]=fun(row-1,col,dp)+fun(row,col-1,dp);
+    }
+    
+    int uniquePaths(int m, int n) {
+        vector<vector<int>> dp(m,vector<int>(n,-1));
+        return fun(m-1,n-1,dp);
+    }
+};
