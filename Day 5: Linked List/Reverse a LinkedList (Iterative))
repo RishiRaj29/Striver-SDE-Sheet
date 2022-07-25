@@ -1,0 +1,32 @@
+// Iterative Method
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if(head==NULL or head->next==NULL)
+            return head;
+            
+        ListNode *p=head,*c=head->next,*n=c->next;
+        
+        while(n)
+        {
+            c->next=p;  //make the current node's next point to prev node
+            
+            p=c;       // make prev = curr
+            
+            c=n;      // make curr = next
+            
+            n=n->next; // increment next
+            
+        }
+        
+        c->next=p;  // Since curr is the last node make its next point to prev
+        
+        head->next=NULL; //Make the first node's next as null so that it becomes the last node
+        
+        head=c; // Make head point to curr which is currently pointing to the last node
+        
+        return head;
+    }
+};
+
