@@ -1,0 +1,69 @@
+/* Refer Striver's Video for in-depth understanding. */
+
+#include <bits/stdc++.h> 
+
+void merge_arrays(long long *nums,long long &count,int left,int mid ,int right)
+{
+    int i=left,j=mid+1;
+
+    vector<long long> temp;
+
+    while(i<=mid and j<=right)
+    {
+        if(nums[i]>nums[j])
+        {
+            temp.push_back(nums[j]);
+            j++;
+            count=count+(mid-i+1);
+        }
+        else
+        {
+            temp.push_back(nums[i]);
+            i++;
+        }
+    }
+
+    while(i<=mid)
+    {
+        temp.push_back(nums[i]);
+        i++;
+    }
+
+    while(j<=right)
+    {
+        temp.push_back(nums[j]);
+        j++;
+    }
+    
+    int k=left;
+    
+    for(auto val:temp)
+    {
+        nums[k]=val;
+        k++;
+    }
+}
+
+void merge_sort(long long *nums,long long &count,int left,int right)
+{
+    if(left==right)
+        return;
+
+    int mid=left+(right-left)/2;
+    
+    merge_sort(nums,count,left,mid);
+    
+    merge_sort(nums,count,mid+1,right);
+    
+    merge_arrays(nums,count,left,mid,right);
+}
+
+long long getInversions(long long *nums, int n){
+    // Write your code here.
+    
+    long long count=0;
+    
+    merge_sort(nums,count,0,n-1);
+    
+    return count;
+}
