@@ -1,0 +1,29 @@
+/*  Start the fast pointer n nodes from head and slow pointer from head . Then increment both by one until fast reaches NULL. 
+
+    When fast reaches NULL then slow will point to the node that will be deleted.    */
+    
+    
+ class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode *slow=head,*fast=head,*prev=head;
+        while(n-- and fast)
+        {
+            fast=fast->next;
+        }
+        if(fast==NULL)
+            head=head->next;
+        else
+        {
+            slow=slow->next;
+            while(fast->next!=NULL)
+            {
+                prev=slow;
+                slow=slow->next;
+                fast=fast->next;
+            }
+            prev->next=slow->next;
+        }
+        return head;
+    }
+};
