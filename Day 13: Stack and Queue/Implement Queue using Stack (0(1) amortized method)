@@ -1,0 +1,92 @@
+/* Using two stacks */
+
+class MyQueue {
+public:
+    stack<int> s;
+    stack<int> temp;
+    MyQueue() {
+        
+    }
+    
+    void push(int x) {
+        while(!s.empty())
+        {
+            temp.push(s.top());
+            s.pop();
+        }
+        s.push(x);
+        while(!temp.empty())
+        {
+            s.push(temp.top());
+            temp.pop();
+        }
+    }
+    
+    int pop() {
+        int ans=s.top();
+        s.pop();
+        return ans;
+    }
+    
+    int peek() {
+        return s.top();
+    }
+    
+    bool empty() {
+        return s.empty();
+    }
+};
+
+/* Amotized O(1) complexity */
+
+class MyQueue {
+public:
+    stack<int> ip;
+    stack<int> op;
+    MyQueue() {
+        
+    }
+    
+    void push(int x) {
+        ip.push(x);
+    }
+    
+    int pop() {
+        if(!op.empty())
+        {
+            int ans=op.top();
+            op.pop();
+            return ans;
+        }
+        else
+        {
+            while(!ip.empty())
+            {
+                op.push(ip.top());
+                ip.pop();
+            }
+            int ans=op.top();
+            op.pop();
+            return ans;
+        }
+    }
+    
+    int peek() {
+        if(op.empty())
+        {
+            while(!ip.empty())
+            {
+                op.push(ip.top());
+                ip.pop();
+            }
+        }
+        return op.top();
+    }
+    
+    bool empty() {
+        if(ip.empty() and op.empty())
+            return true;
+        else
+            return false;
+    }
+};
