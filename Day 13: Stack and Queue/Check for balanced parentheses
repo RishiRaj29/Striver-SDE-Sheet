@@ -1,0 +1,31 @@
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char> stack;
+        int i;
+        for(i=0;i<s.length();i++)
+        {
+            if(s[i]=='(' or s[i]=='[' or s[i]=='{'). // if opening bracket occurs then push it on the stack
+            {
+                stack.push(s[i]);
+            }
+            else
+            {
+                if(stack.empty()) // if for a closing there does not exist any opening bracket in stack then return false
+                    return false;
+                    
+                if(s[i]==')' and stack.top()=='(')
+                    stack.pop();
+                else if(s[i]=='}' and stack.top()=='{')
+                    stack.pop();
+                else if(s[i]==']' and stack.top()=='[')
+                    stack.pop();
+                else
+                    return false;
+            }
+        }
+        if(!stack.empty()) //if the stack is not empty
+            return false;
+        return true;
+    }
+};
