@@ -1,0 +1,27 @@
+/* For better explaination refer to the "Techie Delight" article on this question. */
+
+// Link-> https://www.techiedelight.com/recursive-solution-sort-stack/
+
+void insert(stack<int> &stack,int data)
+{
+    if(stack.empty() or stack.top()<data)
+    {
+        stack.push(data);
+        return;
+    }
+    int t=stack.top();
+    stack.pop();
+    insert(stack,data);
+    stack.push(t);
+}
+
+void sortStack(stack<int> &stack)
+{   
+    if(stack.empty()==true)
+        return;
+    
+    int data=stack.top();
+    stack.pop();
+    sortStack(stack);
+    insert(stack,data);
+}
