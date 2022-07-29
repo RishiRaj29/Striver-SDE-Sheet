@@ -1,0 +1,46 @@
+class Queue {
+public:
+    int r,f;
+    long long int arr[5001]={0};
+    Queue() {
+        // Implement the Constructor
+        f=0,r=0;
+    }
+
+    /*----------------- Public Functions of Queue -----------------*/
+
+    bool isEmpty() {
+        // Implement the isEmpty() function
+        if(r<=f)
+        {
+            r=0;
+            f=0;
+            return true;
+        }
+        else
+            return false;
+    }
+
+    void enqueue(int data) {
+        // Implement the enqueue() function
+        arr[r]=data;
+        r++;
+    }
+
+    int dequeue() {
+        // Implement the dequeue() function
+        if(isEmpty())
+            return -1;
+        int ans=arr[f];
+        f++;
+        return ans;
+    }
+
+    int front() {
+        // Implement the front() function
+        if(isEmpty())
+            return -1;
+        int ans=arr[f];
+        return ans;
+    }
+};
