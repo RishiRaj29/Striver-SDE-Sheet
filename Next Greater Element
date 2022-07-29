@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+
+vector<int> nextGreater(vector<int> &arr, int n) {
+
+
+// THE STACK WHICH IS MAINTAINED HERE SHOULD BE STRICTLY DECREASING
+
+    stack<int> stack;
+    stack.push(arr[n-1]);
+    vector<int> ans;
+    ans.push_back(-1);
+    for(int i=n-2;i>=0;i--)
+    {
+        if(stack.top()>arr[i])
+        {
+            ans.push_back(stack.top());
+            stack.push(arr[i]);
+        }
+        else
+        {
+            while(!stack.empty() and stack.top()<=arr[i])
+                stack.pop();
+            if(stack.empty())
+                ans.push_back(-1);
+            else
+                ans.push_back(stack.top());
+            stack.push(arr[i]);
+        }
+    }
+    reverse(ans.begin(),ans.end());
+    return ans;
+}
