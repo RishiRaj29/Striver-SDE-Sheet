@@ -1,0 +1,103 @@
+class LRUCache {
+public:
+    class node
+    {
+        public:
+        int key;
+        int value;
+        node *next;
+        node *prev;
+        node(int k,int v)
+        {
+            key=k;
+            value=v;
+            next=NULL;
+            prev=NULL;
+        }
+    };
+    
+    node *head=new node(-1,-1);
+    node *tail=new node(-1,-1);
+    int cap;
+    map<int,node*> m;
+    
+    LRUCache(int capacity) {
+        cap=capacity;
+        head->next=tail;
+        tail->prev=head;
+    }
+    
+    
+    void add(node *new_node)
+    {
+        new_node->next=head->next;
+        head->next->prev=new_node;
+        head->next=new_node;
+        new_node->prev=head;
+    }
+    
+    void del(node *delete_node)
+    {
+        delete_node->prev->next=delete_node->next;
+        delete_node->next->prev=delete_node->prev;
+    }
+    
+    
+    /*  In get function follow these steps->
+        
+        1) Check if key exists. 
+        
+        2) If no then return -1 
+        
+        3) or else store the value at that key in ans 
+         
+          3(i) delete that node with the key 
+          
+          3(ii) add a newnode with the given key 
+          
+          3(iii) return ans.
+     */
+    
+    int get(int k) {
+        if(m.find(k)!=m.end())
+        {
+            node *given_node=m[k];
+            int ans=given_node->value;
+            m.erase(k);
+            del(given_node);
+            add(given_node);
+            m[k]=head->next;
+            return ans;
+        }
+        return -1;
+    }
+    
+    /* In the put fun follow these steps
+    
+        1) Try to find the key in the map
+        
+        2) If found erase the key and the corresponding node
+        
+        3) If the key is not found then check the size of the map
+        
+        4) If its equal to capacity then delete the last node of the DLL and the key of the last node from the map.
+        
+        5) Now finnaly add a new node in the starting of the DLL with given key and value.
+   */
+    
+    void put(int k, int v) {
+        if(m.find(k)!=m.end())
+        {
+            node *given_node=m[k];
+            m.erase(k);
+            del(given_node);
+        }
+        if(m.size()==cap)
+        {
+            m.erase(tail->prev->key);
+            del(tail->prev);
+        }
+        add(new node(k,v));
+        m[k]=head->next;
+    }
+};
