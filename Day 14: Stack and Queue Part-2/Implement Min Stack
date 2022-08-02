@@ -1,0 +1,63 @@
+// Just Remember two points for this question->
+
+// 1) In push operation if pushed value is smaller than mini then i) make mini=pushed_value and ii) push modified value= (2*value-mini) in the stack
+
+// 2) In Pop operation if top value<mini then update mini as 2*mini-stack.top()
+
+class MinStack {
+public:
+    
+    stack<long long> stack;
+    long long mini;
+    
+    MinStack() {
+        while(stack.empty()==false)
+            stack.pop();
+        mini=INT_MAX;
+    }
+    
+    void push(int val) {
+        long long value=(long long)val;
+        if(stack.empty())
+        {
+            mini=value;
+            stack.push(value);
+        }
+        else
+        {
+            if(value<mini)
+            {
+                stack.push(2*(value)-mini);
+                mini=value;
+            }
+            else
+            {
+                stack.push(value);
+            }
+        }
+    }
+    
+    void pop() {
+        if(stack.empty())
+            return;
+        long long value=stack.top();
+        stack.pop();
+        if(value<mini)
+        {
+            mini=2*mini-value;
+        }
+    }
+    
+    int top() {
+        if(stack.empty())
+            return -1;
+        long long value=stack.top();
+        if(value<mini)
+            return mini;
+        return value;
+    }
+    
+    int getMin() {
+        return mini;
+    }
+};
