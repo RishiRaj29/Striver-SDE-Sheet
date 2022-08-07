@@ -1,0 +1,24 @@
+// Method - 1 You can use a hash map to detect the loop.
+
+// Method - 2 Slow and fast pointer method. If slow and fast pointers collide then there is a loop.
+
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+    
+        if(head==NULL or head->next==NULL)
+            return false;
+            
+        ListNode *fast=head,*slow=head;
+        do
+        {
+            fast=fast->next->next;
+            slow=slow->next;
+        }while(slow!=fast and fast!=NULL and fast->next!=NULL);
+        
+        if(fast!=NULL and fast->next!=NULL and slow==fast)
+            return true;
+        else
+            return false;
+    }
+};
