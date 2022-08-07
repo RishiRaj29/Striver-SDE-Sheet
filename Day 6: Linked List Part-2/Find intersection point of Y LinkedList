@@ -1,0 +1,69 @@
+// Method-1 is the brute force method and Method-2 uses hashing. Both are easy to implement hence the solutions are not provided here.
+
+// Method-3 Difference of Linked Lists method
+
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        int count1=0,count2=0;
+        ListNode *temp1=headA,*temp2=headB;
+        while(temp1)
+        {
+            temp1=temp1->next;
+            count1++;
+        
+        }
+        while(temp2)
+        {
+            temp2=temp2->next;
+            count2++;
+        }
+        int d=max(count1,count2)-min(count1,count2);
+        if(count1>count2)
+        {
+            while(d--)
+                headA=headA->next;
+        }
+        else
+        {
+            while(d--)
+                headB=headB->next;
+        }
+        while(headA or headB)
+        {
+            if(headA==headB)
+                return headA;
+            else
+            {
+                headA=headA->next;
+                headB=headB->next;
+            }
+        }
+        return NULL;
+    }
+};
+
+// Method-4 Two Pointer Approach
+
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode *ptr1=headA,*ptr2=headB;
+        
+        while(ptr1!=ptr2)
+        {
+            if(ptr1==NULL)
+                ptr1=headB;
+            
+            else
+                ptr1=ptr1->next;
+            
+            if(ptr2==NULL)
+                ptr2=headA;
+            
+            else
+                ptr2=ptr2->next;
+        }
+        return ptr1;
+    }
+};
