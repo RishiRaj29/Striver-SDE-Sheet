@@ -1,0 +1,51 @@
+class Solution {
+public:
+    ListNode* reverse(ListNode* ptr) 
+    {
+        ListNode* pre=NULL;
+        ListNode* nex=NULL;
+        while(ptr!=NULL) {
+            nex = ptr->next;
+            ptr->next = pre;
+            pre=ptr;
+            ptr=nex;
+        }
+        return pre;
+    }
+    
+    bool isPalindrome(ListNode* head) {
+        if(head==NULL or head->next==NULL)
+            return true;
+        
+        ListNode *slow=head,*fast=head;
+        
+    //Find the mid element of the Linked List using fast and slow pointer 
+        
+        while(fast->next!=NULL and fast->next->next!=NULL)
+        {
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        
+        //Now reverse the Linked List from the node after slow
+        
+        slow->next=reverse(slow->next);
+        
+        //Now take dummy ptr and point it to head and start slow from the node you reversed from
+        
+        ListNode *dummy=head;
+        slow=slow->next;
+        
+        while(slow!=NULL)
+        {
+            if(slow->val==dummy->val)
+            {
+                slow=slow->next;
+                dummy=dummy->next;
+            }
+            else
+                return false;
+        }
+        return true;
+    }
+};
