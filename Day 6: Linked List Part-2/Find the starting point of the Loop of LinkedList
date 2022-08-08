@@ -1,0 +1,40 @@
+// Using fast and slow pointers.
+
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        
+        if(head==NULL or head->next==NULL)
+            return NULL;
+        
+        // Start slow and fast pointers from head
+        ListNode *slow=head,*fast=head;
+        do
+        {
+            if(fast==NULL or fast->next==NULL)
+                break;
+        // Move the fast pointer by 2 and slow pointer by 1 
+            
+            slow=slow->next;
+            fast=fast->next->next;
+            
+        }while(fast!=slow);
+        
+    //If they collide then there exists a loop
+        
+        if(slow!=fast)
+            return NULL;
+        
+// Since there is a loop hence start fast from head and slow from the colliding point
+        
+    // The point at which they collide again is the ans node
+        
+        fast=head;
+        while(slow!=fast)
+        {
+            slow=slow->next;
+            fast=fast->next;
+        }
+        return slow;
+    }
+};
