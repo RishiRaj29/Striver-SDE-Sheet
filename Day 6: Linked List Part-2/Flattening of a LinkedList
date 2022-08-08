@@ -1,0 +1,70 @@
+Node* merge(Node *root1,Node *root2)
+{
+    Node *head=NULL,*temp;
+
+// In merging maintain head list and then add nodes to the bottom of the list and return the head
+
+
+    while(root1!=NULL and root2!=NULL)
+    {
+        if(root1->data<root2->data)
+        {
+            if(head==NULL)
+            {
+                head=root1;
+                temp=root1;
+                head->next=NULL;
+            }
+            else
+            {
+                temp->bottom=root1;
+                temp=temp->bottom;
+            }
+            root1=root1->bottom;
+        }
+        else
+        {
+            if(head==NULL)
+            {
+                head=root2;
+                temp=root2;
+                head->next=NULL;
+            }
+            else
+            {
+                temp->bottom=root2;
+                temp=temp->bottom;
+            }
+            root2=root2->bottom;
+        }
+    }
+    while(root1)
+    {
+        temp->bottom=root1;
+        root1=root1->next;
+        temp=temp->bottom;
+    }
+    while(root2)
+    {
+        temp->bottom=root2;
+        root2=root2->next;
+        temp=temp->bottom;
+    }
+    return head;
+}
+
+    
+// Main Logic is to merge the last two lists and then move backward merging the other lists
+
+Node *flatten(Node *root)
+{
+   // Your code here
+    if(root==NULL or root->next==NULL)
+        return root;
+        
+    root->next=flatten(root->next);
+    
+    root=merge(root,root->next);
+    
+    return root;
+}
