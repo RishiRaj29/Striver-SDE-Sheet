@@ -1,0 +1,31 @@
+// The most optimized approach which has a time complexity of O(n)
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        if(s.length()==1)
+            return 1;
+        
+        int left=0,right=0,ans=0;
+        map<char,int> hash;
+        
+        hash[s[right]]=right;//Push the first element and its index in the map
+        right=1;
+        
+        while(right<s.length())
+        {
+            if(hash.find(s[right])!=hash.end())
+                
+            //if the element is present then start the left from hash[s[right]]+1 only if this value lies in the range of left and right
+                
+                left=max(left,hash[s[right]]+1);
+            
+            hash[s[right]]=right;//Now push the new element and its index
+            
+            ans=max(ans,right-left+1);
+            
+            right++;
+        }
+        return ans;
+    }
+};
