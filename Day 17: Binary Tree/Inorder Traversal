@@ -1,0 +1,74 @@
+// Inorder Traversal
+
+// A) Iterative Method
+
+/*
+
+We first take an explicit stack data structure and set an infinite loop.
+
+In every iteration we check whether our current node is pointing to NULL or not.
+
+If it is not pointing to null, we simply push the current value to the stack and move the current node to its left child.
+
+If it is pointing to NULL, we first check whether the stack is empty or not. If the stack is empty, it means that we have traversed the tree and we break out of the loop.
+
+If the stack is not empty, we pop the top value of the stack, print it and move the current node to its right child.
+
+*/
+
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        stack<TreeNode*> stack;
+        vector<int> ans;
+        TreeNode *temp=root;
+        while(1)
+        {
+            if(temp==NULL)
+            {
+                if(stack.empty())
+                    break;
+                else
+                {
+                    temp=stack.top();
+                    stack.pop();
+                    ans.push_back(temp->val);
+                    temp=temp->right;
+                }
+            }
+            else
+            {
+                stack.push(temp);
+                temp=temp->left;
+            }
+        }
+        return ans;
+    }
+};
+
+// B) Recursive Method
+
+// Remember the rule-> left - root - right
+
+/*
+
+class Solution {
+public:
+    void fun(TreeNode *root,vector<int> &ans)
+    {
+        if(root==NULL)
+            return;
+        
+        fun(root->left,ans);
+        ans.push_back(root->val);
+        fun(root->right,ans);
+    }
+    
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        fun(root,ans);
+        return ans;
+    }
+};
+
+*/
