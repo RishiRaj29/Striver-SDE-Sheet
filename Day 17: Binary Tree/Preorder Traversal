@@ -1,0 +1,72 @@
+// A) Recursive Method
+
+// Remember the rule -> root - left - right
+
+/*
+
+class Solution {
+public:
+    void fun(TreeNode *root,vector<int> &ans)
+    {
+        if(root==NULL)
+            return;
+        
+        ans.push_back(root->val);
+        fun(root->left,ans);
+        fun(root->right,ans);
+    }
+    
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        fun(root,ans);
+        return ans;
+    }
+};
+
+*/
+
+// B) Iterative Method
+
+/*
+
+* Run an infinite while loop
+
+* Check if temp is NULL or not -> 
+
+i) if NULL then check whether stack is empty or not . If stack is empty then we have traversed the tree and break the loop
+
+ii)if stack is not empty then make temp equal to stack's top element and pop the element.
+   
+* if temp!=NULL then print the temp->val , check if temp's right child exist or not and push it on the stack and make temp=temp->left.
+
+*/
+
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        TreeNode *temp=root;
+        stack<TreeNode*> stack;
+        while(1)
+        {
+            if(temp==NULL)
+            {
+                if(stack.empty())
+                    break;
+                else
+                {
+                    temp=stack.top();
+                    stack.pop();
+                }
+            }
+            else
+            {
+                ans.push_back(temp->val);
+                if(temp->right)
+                    stack.push(temp->right);
+                temp=temp->left;
+            }
+        }
+        return ans;
+    }
+};
