@@ -1,0 +1,25 @@
+// Use pick and Not-Pick technique to generate the subsets and then calculate the sum 
+
+void fun(int ind,int sum,vector<int> &num,vector<int> &ans)
+{
+    if(ind==num.size())
+    {
+        ans.push_back(sum);
+        return;
+    }
+    
+    fun(ind+1,sum,num,ans);
+    
+    fun(ind+1,sum+num[ind],num,ans);
+}
+
+vector<int> subsetSum(vector<int> &num)
+{
+    vector<int> ans;
+    
+    fun(0,0,num,ans);
+    
+    sort(ans.begin(),ans.end());
+    
+    return ans;
+}
