@@ -1,0 +1,65 @@
+// Method - 1   Recursive Method
+
+/*
+
+class Solution {
+public:
+    void fun(TreeNode *root,vector<int> &ans)
+    {
+        if(root==NULL)
+            return;
+        
+        fun(root->left,ans);
+        fun(root->right,ans);
+        ans.push_back(root->val);
+    }
+    
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        fun(root,ans);
+        return ans;
+    }
+};
+
+*/
+
+
+
+// Method - 2   Iterative Method
+
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        stack<TreeNode*> stack;
+        TreeNode *curr=root,*temp;
+        while(curr!=NULL or !stack.empty())
+        {
+            if(curr!=NULL)
+            {
+                stack.push(curr);
+                curr=curr->left;
+            }
+            else
+            {
+                temp=stack.top()->right;
+                if(temp==NULL)
+                {
+                    temp=stack.top();
+                    stack.pop();
+                    ans.push_back(temp->val);
+                    while(!stack.empty() and temp==stack.top()->right)
+                    {
+                        temp=stack.top();
+                        stack.pop();
+                        ans.push_back(temp->val);
+                    }
+                }
+                else
+                    curr=temp;
+            }
+        }
+        
+        return ans;
+    }
+};
