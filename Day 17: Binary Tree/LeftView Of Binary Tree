@@ -1,0 +1,21 @@
+// We need to do level order traversal of the binary tree
+
+void fun(Node *root,vector<int> &ans,int ht)
+{
+    if(root==NULL)
+        return;
+    if(ans.size()==ht)
+        ans.push_back(root->data);
+    fun(root->left,ans,ht+1);
+    fun(root->right,ans,ht+1);
+}
+
+vector<int> leftView(Node *root)
+{
+   // Your code here
+   vector<int> ans;
+   fun(root,ans,0);
+   return ans;
+}
+
+// NOTE-> For right view of the binary tree call the recursive fun for right child and then the left child.
