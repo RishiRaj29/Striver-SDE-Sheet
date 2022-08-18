@@ -1,0 +1,42 @@
+class Solution {
+
+private:
+
+    void fun(int ind,int k,vector<int>& arr,vector<int> &ds,vector<vector<int>> &ans)
+    {
+        if(k<0 or ind==-1)
+            return;
+        
+        if(k==0)
+        {
+            ans.push_back(ds);
+            return;
+        }
+        
+        if(arr[ind]<=k)
+        {
+            ds.push_back(arr[ind]);
+            
+            fun(ind,k-arr[ind],arr,ds,ans);
+            
+            ds.pop_back();
+        }
+        
+        fun(ind-1,k,arr,ds,ans);
+    }
+    
+public:
+
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+    
+        vector<vector<int>> ans;
+        
+        vector<int> ds;
+        
+        int n=candidates.size(),k=target;
+        
+        fun(n-1,k,candidates,ds,ans);
+        
+        return ans;
+    }
+};
