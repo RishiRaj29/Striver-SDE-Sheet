@@ -1,0 +1,28 @@
+
+void fun(TreeNode *A,int B,vector<int> temp,vector<int> &ans)
+{
+    temp.push_back(A->val);
+    
+    if(A->val==B)
+    {
+        ans=temp;
+        return;
+    }
+    
+    if(A->left)
+        fun(A->left,B,temp,ans);
+        
+    if(A->right)
+        fun(A->right,B,temp,ans);
+}
+
+
+vector<int> Solution::solve(TreeNode* A, int B) {
+    vector<int> ans;
+    
+    vector<int> temp;
+    
+    fun(A,B,temp,ans);
+    
+    return ans;
+}
