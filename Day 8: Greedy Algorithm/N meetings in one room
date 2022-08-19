@@ -1,0 +1,44 @@
+/*
+
+Take a data structure to store the start and end time. Sort this data structure in ascending order of end time. 
+
+We need a variable to store the answer. Initially, the answer is 1 because the first meeting can always be performed. 
+Make another variable, say limit that keeps track of the ending time of the meeting that was last performed. 
+Initially set limit as the end time of the first meeting.
+
+Start iterating from the second meeting. At every position we have two possibilities:-
+
+If the start time of a meeting is  strictly greater than limit we can perform the meeting. Update the answer.
+Our new limit is the ending time of the current meeting  since it was last performed.Also update limit.  
+If the start time is less than or equal to limit  ,skip and move ahead. 
+
+*/
+
+class Solution
+{
+    public:
+    
+    int maxMeetings(int start[], int end[], int n)
+    {
+        vector<pair<int,int>> time;
+        
+        for(int i=0;i<n;i++)
+        {
+            time.push_back(make_pair(end[i],start[i]));
+        }
+        
+        sort(time.begin(),time.end());
+        
+        int limit=time[0].first,count=1;
+        
+        for(int i=1;i<time.size();i++)
+        {
+            if(limit<time[i].second)
+            {
+                limit=time[i].first;
+                count++;
+            }
+        }
+        return count;
+    }
+};
