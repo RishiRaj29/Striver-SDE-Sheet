@@ -1,0 +1,39 @@
+/*
+
+Take 2 array prefix and suffix array and precompute the leftMax and rightMax for each index beforehand.
+
+Then use the formula min(prefix[i],suffix[i])-arr[i] to compute water trapped at each index.
+
+*/
+
+class Solution {
+public:
+    int trap(vector<int>& height) {
+    
+        vector<int> left(height.size(),-1);
+        vector<int> right(height.size(),-1);
+        
+        int maxi=height[0];
+        left[0]=maxi;
+        for(int i=1;i<height.size();i++)
+        {
+            maxi=max(maxi,height[i]);
+            left[i]=maxi;
+        }
+        
+        maxi=height[height.size()-1];
+        right[height.size()-1]=maxi;
+        for(int i=height.size()-2;i>=0;i--)
+        {
+            maxi=max(maxi,height[i]);
+            right[i]=maxi;
+        }
+        
+        int ans=0;
+        for(int i=0;i<height.size();i++)
+        {
+            ans+=min(right[i],left[i])-height[i];
+        }
+        return ans;
+    }
+};
