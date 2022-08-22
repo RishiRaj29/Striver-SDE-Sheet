@@ -1,0 +1,48 @@
+/*
+1) Sort the string
+
+2) Now compare each character of the shortest string with all the other strings.
+if they match then store it in ans . else break and return ans.
+*/
+
+class Solution {
+
+private:
+    bool static cmp(string s1,string s2)
+    {
+        return s1.length()<s2.length();
+    }
+    
+public:
+
+    string longestCommonPrefix(vector<string>& strs) {
+    
+        sort(strs.begin(),strs.end(),cmp);
+        string ans="";
+        
+        for(int i=0;i<strs[0].length();i++)
+        {
+            char ch=strs[0][i];
+            
+            int j=1;
+            
+            while(j<strs.size())
+            {
+            
+                if(ch==strs[j][i])
+                    j++;
+                else
+                    break;
+            }
+            
+            if(j==strs.size())
+            {
+                ans+=ch;
+            }
+            
+            else
+                break;
+        }
+        return ans;
+    }
+};
