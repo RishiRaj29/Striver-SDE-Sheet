@@ -1,0 +1,111 @@
+// Roman to Integer
+
+class Solution {
+public:
+    int romanToInt(string s) {
+        unordered_map<char,int> hash{
+        {'I',1},
+        {'V',5},
+        {'X',10},
+        {'L',50},
+        {'C',100},
+        {'D',500},
+        {'M',1000},
+    };
+    
+        int i=0,ans=0;
+        
+        for(i=0;i<s.length();i++)
+        {
+            if(hash[s[i]]<hash[s[i+1]])    // For eg 'IV' 
+            
+//here s[i]=I and s[i+1]=V .since this condition is true hence from ans subtract 1 and add 5 which means in ans we are finally adding 4.
+
+                ans-=hash[s[i]];
+                
+            else
+            
+                ans+=hash[s[i]];
+        }
+        return ans;
+    }
+};
+
+// Integer to Roman
+
+class Solution {
+public:
+    string intToRoman(int num) {
+    
+        string ans;
+        
+        while(num>=1000) {
+            ans+="M";
+            num-=1000;
+            }
+            
+        while(num>=900) {
+
+            ans+="CM";
+
+            num-=900;
+
+            }
+            
+        while(num>=500) {
+            ans+="D";
+            num-=500;
+            }
+            
+        while(num>=400) {
+            ans+="CD";
+            num-=400;
+            }
+            
+        while(num>=100) {
+            ans+="C";
+            num-=100;
+            }
+            
+        while(num>=90) {
+            ans+="XC";
+            num-=90;
+            }
+        while(num>=50) {
+            ans+="L";
+            num-=50;
+            }
+            
+        while(num>=40) {
+            ans+="XL";
+            num-=40;
+            }
+            
+        while(num>=10) {
+            ans+="X";
+            num-=10;
+            }
+            
+        while(num>=9) {
+            ans+="IX";
+            num-=9;
+            }
+            
+        while(num>=5) {
+            ans+="V";
+            num-=5;
+            }
+            
+        while(num>=4) {
+            ans+="IV";
+            num-=4;
+            }
+            
+        while(num>=1) {
+            ans+="I";
+            num-=1;
+            }
+            
+        return ans;
+    }
+};
