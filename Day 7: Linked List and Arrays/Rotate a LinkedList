@@ -1,0 +1,57 @@
+/*
+
+Calculate the length of the list.
+
+Connect the last node to the first node, converting it to a circular linked list.
+
+Iterate to cut the link of the last node and start a node of k%length of the list rotated list.
+
+*/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+        if(head==NULL or head->next==NULL or k==0)
+            return head;
+            
+        ListNode *temp=head,*prev=head,*curr=head->next,*t=head;
+        
+        int count=0;
+        while(t)
+        {
+            count++;
+            t=t->next;
+        }
+        
+        k=k%count;
+        if(k==0)
+            return head;
+            
+        int x=count-k-1;
+        while(x--)
+        {
+            prev=curr;
+            curr=curr->next;
+        }
+        
+        prev->next=NULL;
+        head=curr;
+        
+        while(curr->next!=NULL)
+            curr=curr->next;
+            
+        curr->next=temp;
+        
+        return head;
+    }
+};
