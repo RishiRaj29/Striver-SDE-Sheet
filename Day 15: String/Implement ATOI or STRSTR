@@ -1,0 +1,67 @@
+/* The Solution is explained .Please go through it. */
+
+class Solution {
+public:
+    int myAtoi(string s) {
+        long ans=0;
+        int i,j;
+        int flag=1;
+        
+        for(i=0;i<s.length();i++)//Ignoring white spaces
+        {
+            if(s[i]!=' ')
+                break;
+        }
+        
+        if(s[i]=='-')//checking the sign of the number
+        {
+            i+=1;
+            flag=-1;
+        }
+        
+        else if(s[i]=='+')
+        {
+            i+=1;
+            flag=1;
+        }
+        
+        for(j=i;j<s.length();j++)//converting it to number
+        {
+            int x=(int)(s[j]-'0');
+            
+            if(x>=0 and x<=9)
+            {
+                ans=ans*10+x;
+                
+                if((ans*flag)<=-2147483648)
+                    return -2147483648;
+                    
+                if((ans*flag)>=2147483648)
+                    return 2147483647;
+                    
+            }
+            else
+                break;
+        }
+        
+        ans=ans*flag;
+        
+        if(ans<0)
+        {
+            if(ans<-2147483648)
+                return -2147483648;
+                
+            else
+                return ans;
+        }
+        
+        else
+        {
+            if(ans>=2147483648)
+                return 2147483647;
+                
+            else
+                return ans;
+        }
+    }
+};
