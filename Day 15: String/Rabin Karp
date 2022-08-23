@@ -1,0 +1,80 @@
+class Solution {
+private:
+    int rabin_karp(string text,string pattern)  //RABIN-KARP ALGORITHM
+    {                                                                  
+    // TIME COMPLEXITY->  O(n+m)
+    
+        map<char,int>codes;
+        
+        codes[' ']=0;
+        codes['A']=1;codes['B']=2;codes['C']=3;codes['D']=4;codes['E']=5;codes['F']=6;codes['G']=7;
+        codes['H']=8;codes['I']=9;codes['J']=10;codes['K']=11;codes['L']=12;codes['M']=13;codes['N']=14;
+        codes['O']=15;codes['P']=16;codes['Q']=17;codes['R']=18;codes['S']=19;codes['T']=20;codes['U']=21;
+        codes['V']=22;codes['W']=23;codes['X']=24;codes['Y']=25;codes['Z']=26;
+
+        int value=0,data=0,k;
+
+        for(int i=0;i<pattern.length();i++)
+            value+=codes[pattern[i]];
+
+        int i=0,j=pattern.length();
+
+        for(k=i;k<j;k++)
+            data+=codes[text[k]];
+
+        if(data==value)
+        {
+            int t=i;
+            for(k=0;k<pattern.length();k++)
+            {
+                if(pattern[k]!=text[t])
+                    break;
+                t++;
+            }
+            if(k==pattern.length())
+                return i;
+        }
+        data-=codes[text[i]];
+        i++;j++;
+
+        while(j<=text.length())
+        {
+            data+=codes[text[j-1]];
+            if(data==value)
+            {
+                int t=i;
+                for(k=0;k<pattern.length();k++)
+                {
+                    if(pattern[k]!=text[t])
+                        break;
+                    t++;
+                }
+                if(k==pattern.length())
+                    return i;
+            }
+            data-=codes[text[i]];
+            i++;j++;
+        }
+        return -1;
+    }
+    
+public:
+    int repeatedStringMatch(string a, string b) {
+        
+       int cnt = 1;
+       string temp  = a;
+       while(a.size() < b.size())
+       {
+           cnt++;
+           a+=temp;
+       }
+       
+       if(rabin_karp(a,b) != -1) 
+           return cnt;
+       a = a+temp;
+       if(rabin_karp(a,b) != -1) 
+           return cnt+1;
+       
+       return -1;
+    }
+};
