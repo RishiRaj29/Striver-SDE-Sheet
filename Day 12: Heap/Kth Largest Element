@@ -1,0 +1,69 @@
+// Method -1 Using priority queue
+
+/*
+
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+    
+        priority_queue<int> pq;
+        
+        for(auto i:nums)
+        {
+            pq.push(i);
+        }
+        
+        k=k-1;
+        
+        while(k--)
+        {
+            pq.pop();
+        }
+        
+        int ans=pq.top();
+        
+        return ans;
+    }
+};
+
+*/
+
+// Method -2 Using quick Select
+
+class Solution {
+public:
+    
+    int quick_select(vector<int> &nums,int left,int right,int k)
+    {
+        int i=left-1,j=left,pivot=right;
+
+        for(j=left;j<pivot;j++)
+        {
+            if(nums[j]<nums[pivot])
+            {
+                i++;
+                swap(nums[i],nums[j]);
+            }
+        }
+
+        i++;
+        swap(nums[i],nums[pivot]);
+
+        if(i==nums.size()-k)
+            return nums[i];
+        
+        else if(i<nums.size()-k)
+            return quick_select(nums,i+1,right,k);
+        
+        else
+            return quick_select(nums,left,i-1,k);
+        
+    }
+    
+    int findKthLargest(vector<int>& nums, int k) {
+    
+        int n=nums.size();
+        
+        return quick_select(nums,0,n-1,k);
+    }
+};
