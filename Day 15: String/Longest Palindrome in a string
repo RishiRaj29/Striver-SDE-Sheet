@@ -1,0 +1,48 @@
+class Solution {
+private:
+
+    string expand(string s,int left,int right)
+    {
+    // Try to find the longest possible palinfrome substring for given center and return that substring
+        while(left>-1 and right<s.length() and s[left]==s[right])
+        {
+        
+        // Expand in both side
+        
+            left--;
+            right++;
+        }
+        
+        return s.substr(left+1,right-left-1);
+        
+    }
+public:
+    string longestPalindrome(string s) {
+    
+        int cen;
+        
+        string ans="",cur;
+        
+        for(cen=0;cen<s.length();cen++)
+        
+        // Consider every point of the string as center
+        
+        {
+            cur=expand(s,cen,cen); // Try to find the longest odd length substring which is palindrome
+            
+            if(cur.length()>ans.length())
+            {
+                ans=cur;
+            }
+            
+            cur=expand(s,cen,cen+1); // Try to find the longest even length substring which is palindrome
+            
+            if(cur.length()>ans.length())
+            {
+                ans=cur;
+            }
+            
+        }
+        return ans;
+    }
+};
