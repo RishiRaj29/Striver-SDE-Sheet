@@ -1,0 +1,77 @@
+/*
+
+We take a queue and push the root node along with index 0.
+
+We traverse the tree using a level order traversal.
+
+In the level order traversal we set another loop to run for the size of the queue, so that we visit the same level nodes inside it.
+
+Before a level starts, we use a variable(say curMin) to store the index of the first node.
+
+We assign an index to every node, and to its children as described above.
+
+When the inner loop is at the first node of a level, we store its index in another variable(sayleftMost)
+
+When the inner loop is at the last node of a level, we store its index in another variable(say rightMost)
+
+After a level  in the outer loop, we calculate the width of the level as (rightMost – leftMost +1).
+
+We return the maximum width as the answer.
+
+*/
+
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int widthOfBinaryTree(TreeNode* root) {
+        int ans=1;
+        
+        queue<pair<TreeNode*,long long>> queue;
+        
+        queue.push({root,0});
+        
+        int mini,size,left,right;
+        
+        while(!queue.empty())
+        {
+            size=queue.size();
+            
+            mini=queue.front().second;
+            
+            for(int i=0;i<size;i++)
+            {
+                TreeNode *cur=queue.front().first;
+                
+                long long cur_id=queue.front().second-mini;
+                
+                queue.pop();
+                
+                if(i==0)
+                    left=cur_id;
+                    
+                if(i==size-1)
+                    right=cur_id;
+                    
+                if(cur->left)
+                    queue.push({cur->left,(2*cur_id)+1});
+                    
+                if(cur->right)
+                    queue.push({cur->right,(2*cur_id)+2});
+                    
+                ans=max(ans,right-left+1);
+            }
+        }
+        return ans;
+    }
+};
