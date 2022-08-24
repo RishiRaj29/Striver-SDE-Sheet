@@ -1,0 +1,42 @@
+class Solution {
+private:
+    void fun(TreeNode *root,int col,int row,map<int,vector<pair<int,int>>> &hash)
+    {
+        if(root==NULL)
+            return;
+        // Just push the element at its right row and col
+        
+        hash[col].push_back({row,root->val});
+        
+        if(root->left) // when exploring left then make col-1 and row+1
+            fun(root->left,col-1,row+1,hash);
+            
+        if(root->right) // when exploring left then make col+1 and row+1
+            fun(root->right,col+1,row+1,hash);
+    }
+public:
+    vector<vector<int>> verticalTraversal(TreeNode* root) {
+        vector<vector<int>> ans;
+        
+        map<int,vector<pair<int,int>>> hash;
+        
+        fun(root,0,0,hash);
+        
+        for(auto[key,value]:hash)
+        {
+        
+        // Sort the values having same row as the question requires it
+        
+            sort(value.begin(),value.end());
+            
+            vector<int> temp;
+            
+            for(auto [k,v]:value)
+                temp.push_back(v);
+                
+            ans.push_back(temp);
+        }
+        
+        return ans;
+    }
+};
