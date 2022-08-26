@@ -16,6 +16,69 @@ Repeat the process until gap>0.
 
 */
 
+// Difficult approach is to use arrays as then the space is restricted
+
+class Solution{
+
+    public:
+   
+        void merge(long long arr1[], long long arr2[], int n, int m) 
+        { 
+            int gap=ceil((float)(n+m)/2);
+            
+            int i=0,j=gap;
+	    
+            while(gap)
+            {
+                j=gap;i=0;
+		
+                while(j<n) // when i and j lie in the first array
+                {
+                    if(arr1[i]>arr1[j])
+                        swap(arr1[i],arr1[j]);
+                    i++;
+                    j++;
+                }
+		
+                if(j>=n) // when j's range in first array ends then it has to start from the second array's start
+                {
+                    j=j-n;
+                }
+		
+                while(j<m) // when i is in first array and j is in second array
+                {
+                    if(arr1[i]>arr2[j])
+                        swap(arr1[i],arr2[j]);
+                    i++;
+                    j++;
+		    
+                    if(i==n) // when j's range in first array ends then it has to start from the second array's start
+                    {
+                        i=0;
+                        break;
+                    }
+                }
+		
+                while(j<m) // when i and j both are in the range of second array
+                {
+                    if(arr2[i]>arr2[j])
+                        swap(arr2[i],arr2[j]);
+                    i++;
+                    j++;
+                }
+		
+                if(gap==1)
+                    gap=0;
+                else
+                    gap=ceil((float)gap/2);
+		    
+            }
+        } 
+};
+
+
+// An easy approach is to use vectors
+
 vector<int> ninjaAndSortedArrays(vector<int>& arr1, vector<int>& arr2, int m, int n) {
 
 	// Write your code here.
