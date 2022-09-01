@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+    
+        if(needle.length()==0)
+            return 0;
+            
+        string s=needle+"$"+haystack;
+        
+        vector<int> zfun;
+        
+        zfun.push_back(0);
+        
+        for(int i=1;i<s.length();i++)
+        {
+            int c=0,l=0,r=i;
+            
+            while(s[l]==s[r] and r<s.length())
+            {
+                c++;
+                l++;
+                r++;
+            }
+            
+            zfun.push_back(c);
+        }
+        int ans;
+        
+        for(int i=0;i<zfun.size();i++)
+        {
+            if(zfun[i]==needle.length())
+            {
+                ans=i-needle.length()-1;
+                
+                return ans;
+            }
+        }
+        return -1;
+    }
+};
