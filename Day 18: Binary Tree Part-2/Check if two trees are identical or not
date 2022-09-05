@@ -1,0 +1,28 @@
+class Solution {
+
+public:
+
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+    
+        if(p==NULL and q==NULL) // If both are NULL then return true
+            return true;
+            
+        if(p==NULL or q==NULL) // If one of them is NULL and other is not then return false
+            return false;
+            
+        bool l=false,r=false;
+        
+        if(p->val==q->val) // if both the nodes have equal values then check for left subtree and right subtree
+        {
+        
+            l=isSameTree(p->left,q->left); // check for left subtree
+            
+            r=isSameTree(p->right,q->right); // check for right subtree
+            
+            return l and r; // we want to return true only when l and r both are true
+        }
+        
+        else
+            return false;
+    }
+};
