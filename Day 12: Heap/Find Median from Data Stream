@@ -1,0 +1,45 @@
+// Make two heaps namely max_heap and min_heap.
+
+// Max heap will store all the small elements whereas min heap will store the larger elements
+
+class MedianFinder {
+
+public:
+
+    priority_queue<int> max_heap; // Store the smaller elements in descending order
+    
+    priority_queue<int,vector<int>,greater<int>> min_heap; // Store the larger elements in ascending order
+    
+    MedianFinder() {
+        
+    }
+    
+    void addNum(int num) {
+    
+        max_heap.push(num); // Add the element in max_heap first
+        
+        min_heap.push(max_heap.top()); // Now add the top of max_heap in min_heap
+        
+        max_heap.pop(); // delete the top element from the max_heap
+        
+        if(max_heap.size()<min_heap.size())
+        {
+            max_heap.push(min_heap.top()); // if max_heap size is less then add min_heap's top element to max_heap
+            
+            min_heap.pop(); // delete the added element from min_heap
+        }
+    }
+    
+    double findMedian() {
+    
+        int lsize=max_heap.size(),rsize=min_heap.size();
+        
+        if(lsize>rsize) // if the number of elements are ODD 
+            return (double)max_heap.top();
+            
+        else // if the number of elements are EVEN
+        {
+            return ((double)max_heap.top()+(double)min_heap.top())/2;
+        }
+    }
+};
