@@ -1,0 +1,41 @@
+/* Approach->
+
+Sort the input array.
+
+Make a recursive function that takes the input array ,the current subset,the current index and  a list of list/ vector of vectors to contain the answer.
+
+Try to make a subset of size n during the nth recursion call and consider elements from every index while generating the combinations. 
+Only pick up elements that are appearing for the first time during a recursion call to avoid duplicates.
+
+Once an element is picked up, move to the next index.
+The recursion will terminate when the end of array is reached.While returning backtrack by removing the last element that was inserted.
+
+*/
+
+class Solution {
+private:
+    void fun(int ind,vector<int> &nums,vector<int> &ds,vector<vector<int>> &ans)
+    {
+        ans.push_back(ds);
+        
+        for(int i=ind;i<nums.size();i++)
+        {
+            if(i!=ind and nums[i]==nums[i-1])
+                continue;
+                
+            ds.push_back(nums[i]);
+            
+            fun(i+1,nums,ds,ans);
+            
+            ds.pop_back();
+        }
+    }
+public:
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        vector<int> ds;
+        vector<vector<int>> ans;
+        sort(nums.begin(),nums.end());
+        fun(0,nums,ds,ans);
+        return ans;
+    }
+};
