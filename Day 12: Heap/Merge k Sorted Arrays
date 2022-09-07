@@ -1,0 +1,39 @@
+class Solution
+{
+    public:
+    //Function to merge k sorted arrays.
+    vector<int> mergeKArrays(vector<vector<int>> arr, int K)
+    {
+      
+      // Make a min_heap to store pair of pair elements
+      
+        priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>,greater<pair<int,pair<int,int>>>> min_heap;
+        
+        vector<int> ans;
+        
+        // Each value of the min_heap has the follwoing structure {value , {list_no , index}}
+        
+      // Add first element of each array of the 2-d array
+      
+        for(int i=0;i<K;i++)
+        {
+            min_heap.push({arr[i][0],{i,0}});
+        }
+        
+        while(min_heap.size()!=0)
+        {
+            auto it=min_heap.top();
+            min_heap.pop();
+            
+            int list_no=it.second.first;
+            int ind=it.second.second;
+            
+            if(ind<arr[list_no].size()-1)
+                min_heap.push({arr[list_no][ind+1],{list_no,ind+1}});
+                
+            ans.push_back(it.first);
+        }
+        
+        return ans;
+    }
+};
